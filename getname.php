@@ -34,7 +34,8 @@ if (mysqli_connect_error()){
             //print_r($row);
             // echo "<p> Patient Name is".$row['name']."</p>";   //works Apr 23 2017
             //echo $row['name'];  works Apr 23 2017
-            echo json_encode($row['name']);
+            //echo json_encode($row['name']);
+            echo $row['name']; 
            }
     
     } else  {
