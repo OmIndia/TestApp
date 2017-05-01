@@ -244,7 +244,8 @@
             
              $.ajax({
                 type: 'GET',
-                url: 'http://localhost/getname.php',
+                //url: 'http://localhost/getname.php',
+                url: 'getname.php',
                 // data to be added to query string:
                 data: { id: $(page).find("#patid").val()},
                 // type of data we are expecting in return:
@@ -311,7 +312,8 @@
             if (err == 0) {
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost/savedata.php',
+                //url: 'http://localhost/savedata.php',
+                url: 'savedata.php',
                 //contentType:"application/json; charset=utf-8",
                 // data to be added to query string:
                 data: { id: $(page).find("#patid").val(), 
@@ -366,7 +368,8 @@
            $(page).find("#chartContainer").hide();
              $.ajax({
                 type: 'GET',
-                url: 'http://localhost/getname.php',
+                //url: 'http://localhost/getname.php',
+                url: 'getname.php',
                 // data to be added to query string:
                 data: { id: $(page).find("#patid").val()},
                 // type of data we are expecting in return:
@@ -402,7 +405,8 @@
                 // alert($(page).find("#patid").val());
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost/getdata.php',
+                   // url: 'http://localhost/getdata.php',
+                    url: 'getdata.php',
                     // data to be added to query string:
                     data: { id: $(page).find("#patid").val()},
                     // type of data we are expecting in return:
@@ -531,7 +535,8 @@
 
         $.ajax({
                 type: 'GET',
-                url: 'http://localhost/getname.php',
+                //url: 'http://localhost/getname.php',
+                url: 'getname.php',
                 // data to be added to query string:
                 data: { id: $(page).find("#patid").val()},
                 // type of data we are expecting in return:
@@ -567,7 +572,8 @@
                 // alert($(page).find("#patid").val());
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost/getdata.php',
+                   // url: 'http://localhost/getdata.php',
+                    url: 'getdata.php',
                     // data to be added to query string:
                     data: { id: $(page).find("#patid").val()},
                     // type of data we are expecting in return:
@@ -697,7 +703,8 @@
         $(page).find('#enroll').click(function(){
              $.ajax({
                 type: 'GET',
-                url: 'http://localhost/enrolldata.php',
+                //url: 'http://localhost/enrolldata.php',
+                url: 'enrolldata.php',
                 //contentType:"application/json; charset=utf-8",
                 //contentType:"application/x-www-form-urlencoded; charset=UTF-8",
                 // data to be added to query string:
@@ -749,7 +756,8 @@
             //alert("Clicked");
              $.ajax({
                 type: 'GET',
-                url: 'http://localhost/signin.php',
+                //url: 'http://localhost/signin.php',
+                url: 'signin.php',
                 //contentType:"application/json; charset=utf-8",
                 // data to be added to query string:
                 data: {  uid: JSON.stringify($(page).find("#uid").val()),
