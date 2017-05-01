@@ -25,12 +25,12 @@ if (mysqli_connect_error()){
 
     
 $rtn = mysqli_fetch_assoc(mysqli_query($link,"SELECT `Name` from patients WHERE `id`=$id"));
- if ($rtn) {
+ //if ($rtn) {
             $name = $rtn['Name'];
             echo $name;
- }
- else  {
-        echo -1;  
-    }
+ //}
+ //else  {
+ //       echo -1;  
+ //   }
 
  
