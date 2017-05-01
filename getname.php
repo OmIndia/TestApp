@@ -24,13 +24,13 @@ if (mysqli_connect_error()){
 
 
     
-$rtn = mysqli_fetch_assoc(mysqli_query($link,"SELECT name from patients WHERE `id`=$id"));
+$rtn = mysqli_fetch_assoc(mysqli_query($link,"SELECT `Name` from patients WHERE `id`=$id"));
  if ($rtn) {
-            $name = $rtn['name'];
+            $name = $rtn['Name'];
             echo $name;
  }
  else  {
-        echo -1;  //does not work Apr 23 2017
+        echo -1;  
     }
 
  
