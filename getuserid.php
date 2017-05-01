@@ -16,6 +16,6 @@ $link = mysqli_connect("localhost","root","hariom","test");
             $rtn = mysqli_fetch_assoc(mysqli_query($link,"SELECT `Id` from patients WHERE `Mobile`=$mob"));
             $id = $rtn['Id'];
             echo $id;
-            
+mysqli_close($link);  
   
 ?>

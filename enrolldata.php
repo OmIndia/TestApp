@@ -13,6 +13,8 @@ $name = $_GET['name'];
 $addr = $_GET['addr'];
 $mob = $_GET['mob'];
 $ed = $_GET['ed'];
+$uid = $_GET['uid'];
+$pwd = $_GET['pwd'];
 
 $query="";
 $link = mysqli_connect("localhost","root","hariom","test");
@@ -28,13 +30,18 @@ $link = mysqli_connect("localhost","root","hariom","test");
         //echo "Query was successful";
        
             //echo 1;
+        $query = "INSERT INTO users (`Userid`,`Password`,`Role`,`Mobile`) 
+        VALUES ($uid, md5($pwd),'P',$mob);"; 
+        $result= mysqli_query($link,$query);
+
          $rtn = mysqli_fetch_assoc(mysqli_query($link,"SELECT `Id` from patients WHERE `Mobile`=$mob"));
+         
             $id = $rtn['Id'];
             echo $id;
            }    
  else  {
         echo -1; 
     }
-    
+    mysqli_close($link);
 
 ?>

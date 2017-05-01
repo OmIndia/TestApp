@@ -184,6 +184,12 @@
            <div class="app-section">
             Mobile<input class="app-input" id="mobile">
             </div>
+            <div class="app-section">
+            User Id<input class="app-input" id="uid">
+            </div>
+            <div class="app-section">
+            Password<input class="app-input" type = "password" id="pwd">
+            </div>
            <div class="app-section">
             Enrollment Date<input class="app-input" id="enrolldate">
             </div>
@@ -231,6 +237,7 @@
         //$(page).find("#datetime").val($.datepicker.formatDate('yy/mm/dd', new Date()));
         //alert(moment().format('DD-MMM-YYYY'));
         $(page).find("#testdate").val(moment().format("DD-MMM-YYYY HH:mm:ss"));
+         $(page).find('#testdate').attr("disabled",true);
          $(page).find('#patid').change(function() {
             //alert( "Handler for .change() called." );
             //alert($(page).find("#patid").val());
@@ -681,10 +688,12 @@
 
    App.controller('Enroll', function (page) {
         $(page).find("#message").hide();
+         
         //$(page).find("#datetime").val($.datepicker.formatDate('yy/mm/dd', new Date()));
         //alert(moment().format('DD-MMM-YYYY'));
         $(page).find("#enrolldate").val(moment().format("DD-MMM-YYYY"));
         //alert(JSON.stringify($(page).find("#enrolldate").val()));
+         $(page).find('#enrolldate').attr("disabled",true);
         $(page).find('#enroll').click(function(){
              $.ajax({
                 type: 'GET',
@@ -695,6 +704,8 @@
                 data: {  ed: JSON.stringify($(page).find("#enrolldate").val()),
                         name: JSON.stringify($(page).find("#name").val()), 
                         addr:JSON.stringify($(page).find("#address").val()),
+                         uid: JSON.stringify($(page).find("#uid").val()),
+                        pwd: JSON.stringify($(page).find("#pwd").val()),
                         mob:parseInt($(page).find("#mobile").val())},
                 // type of data we are expecting in return:
                 dataType: 'text',

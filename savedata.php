@@ -38,6 +38,6 @@ $link = mysqli_connect("localhost","root","hariom","test");
         echo -1;  //does not work Apr 23 2017
     }
     
-
+mysqli_close($link);
  
 ?>

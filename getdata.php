@@ -27,7 +27,7 @@ $link = mysqli_connect("localhost","root","hariom","test");
             $json = json_encode($data);
             
              }
-     
+        //mysql_close($link);
         echo $json;
     }
       else  {
