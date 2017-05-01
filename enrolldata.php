@@ -17,10 +17,27 @@ $uid = $_GET['uid'];
 $pwd = $_GET['pwd'];
 
 $query="";
+/*   May 1 2017 - next 4 lines needed for localhost so commented for Heroku
 $link = mysqli_connect("localhost","root","hariom","test");
     if (mysqli_connect_error()){
         die( "Connection error");
         }
+    */
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+ 
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
+ 
+//$conn = new mysqli($server, $username, $password, $db);
+$link = mysqli_connect($server, $username, $password, $db);
+if (mysqli_connect_error()){
+        die( "Connection error");
+        }
+
+
+
     $query = "INSERT INTO patients (`Name`,`Address`,`Mobile`,`Enrolldate`) 
         VALUES ($name, $addr,$mob, $ed);"; 
     //echo $query;
