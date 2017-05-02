@@ -38,19 +38,20 @@ if (mysqli_connect_error()){
 
 
 
-    $query = "INSERT INTO patients (`Name`,`Address`,`Mobile`,`Enrolldate`) 
+    $query1 = "INSERT INTO patients (`Name`,`Address`,`Mobile`,`Enrolldate`) 
         VALUES ($name, $addr,$mob, $ed);"; 
     //echo $query;
-    $result= mysqli_query($link,$query);
-    if ($result){
+    $result1= mysqli_query($link,$query1);
+    $query2 = "INSERT INTO users (`Userid`,`Password`,`Role`,`Mobile`) 
+        VALUES ($uid, md5($pwd),'P',$mob);"; 
+        $result2= mysqli_query($link,$query2);
+
+    if ($result1 AND $result2){
 
         //echo "Query was successful";
        
             //echo 1;
-        $query = "INSERT INTO users (`Userid`,`Password`,`Role`,`Mobile`) 
-        VALUES ($uid, md5($pwd),'P',$mob);"; 
-        $result= mysqli_query($link,$query);
-
+        
          $rtn = mysqli_fetch_assoc(mysqli_query($link,"SELECT `Id` from patients WHERE `Mobile`=$mob"));
          
             $id = $rtn['Id'];
