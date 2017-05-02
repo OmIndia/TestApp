@@ -42,8 +42,9 @@ if (mysqli_connect_error()){
         VALUES ($name, $addr,$mob, $ed);"; 
     //echo $query;
     $result1= mysqli_query($link,$query1);
+    $enpwd = md5($pwd);
     $query2 = "INSERT INTO users (`Userid`,`Password`,`Role`,`Mobile`) 
-        VALUES ($uid, md5($pwd),'P',$mob);"; 
+        VALUES ($uid, '$enpwd','P',$mob);"; 
         $result2= mysqli_query($link,$query2);
 
     if ($result1 AND $result2){
