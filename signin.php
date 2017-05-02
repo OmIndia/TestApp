@@ -42,7 +42,7 @@ if (mysqli_connect_error()){
             //$role = $rtn['Role'];
             //echo $role;
         if ($rtn == null){
-            $rtn = mysqli_fetch_array(mysqli_query($link,"SELECT Role from Users join Patients on Users.Mobile=Patients.Mobile WHERE `userid`=$uid AND `password`='$pwd' AND `role`='A'"));
+            $rtn = mysqli_fetch_array(mysqli_query($link,"SELECT Role from Users WHERE `userid`=$uid AND `password`='$pwd' AND `role`='A'"));
         }
             $json = json_encode($rtn);
             //mysql_close($link);
