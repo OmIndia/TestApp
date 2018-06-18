@@ -509,42 +509,12 @@
                     };
                     custecg = cust_ecg;
                     //alert(customers);
-                     // Create a HTML Table element.
-                    var table = $("<table />");
-                    table[0].border = "1";
-            
-                    //Get the count of columns.
-                    var columnCount = customers[0].length;
-                    
-                    //Add the header row.
-                    var row = $(table[0].insertRow(-1));
-                    for (var i = 0; i < columnCount; i++) {
-                        var headerCell = $("<th />");
-                        headerCell.html(customers[0][i]);
-                        row.append(headerCell);
-                    }
-            
-                    //alert("Add the data rows");
-                    for (var i = 1; i < customers.length; i++) {
-                        row = $(table[0].insertRow(-1));
-                        for (var j = 0; j < columnCount; j++) {
-                            var cell = $("<td />");
-                            cell.html(customers[i][j]);
-                            row.append(cell);
-                        }
-                    }
-            
-                    var dvTable = $("#dvTable");
-                    dvTable.html("");
-                    dvTable.append(table);
-                    $(page).find("#dvTable").show();
-                    $(page).find("#ecg").show();
-                    
+                                       
                     
                 },
                 error: function(xhr, type){
                     
-                        alert( "No test data exists" );
+                        alert( "No ecg data exists" );
                     
                 }
     })
