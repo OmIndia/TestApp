@@ -72,17 +72,14 @@
         <div class="app-content">
             <div class="app-section"  id="message"> </div>
             <div class="app-section">
-                
-				User  Id<input class="app-input" id="uid">
+                User Id<input class="app-input" id="uid">
             </div>
             <div class="app-section">
 				Password<input class="app-input" type = "password" id="pwd">
             </div>
             <div class="app-section">
                 <div class="app-button green" id="signin">Sign-in</div>
-			
-		   
-            </div>
+			</div>
         </div>
      </div>
 
@@ -123,7 +120,7 @@
 
     <div class="app-page" data-page="ViewData">
         <div class="app-topbar">
-            <div class="app-title">View Patient Data</div>
+            <div class="app-title">View Patient Data..</div>
         </div>
         <div class="app-content">
             <div class="app-section"  id="message"> </div>
@@ -140,6 +137,9 @@
             <div class="app-section">
             <div id="chartContainer" style="height: 400px; width: 100%;"></div>
             </div>
+			<div class="app-section">
+            <div id="ecgContainer" style="height: 400px; width: 100%;"></div>
+            </div>
             <div class="app-section">
             <div class="left app-button green"  id="Get">Find</div>
             <div class="app-button red" data-target="home">Back</div>
@@ -148,13 +148,17 @@
                 <div class="left app-button blue"  id="grph">Graph</div>
                 
             </div>
+			<div class="app-section">
+                <div class="left app-button blue"  id="ecg">ECG</div>
+                
+            </div>
             
         </div>
     </div>
    
    <div class="app-page" data-page="ViewData_Patient">
         <div class="app-topbar">
-            <div class="app-title">View Patient Data</div>
+            <div class="app-title">View Patient Data*</div>
         </div>
         <div class="app-content">
             <div class="app-section"  id="message"> </div>
@@ -171,6 +175,9 @@
             <div class="app-section">
             <div id="chartContainer" style="height: 400px; width: 100%;"></div>
             </div>
+			<div class="app-section">
+            <div id="ecgContainer" style="height: 400px; width: 100%;"></div>
+            </div>
             <div class="app-section">
             <div class="left app-button green"  id="Get">Find</div>
             
@@ -179,10 +186,14 @@
                 <div class="left app-button blue"  id="grph">Graph</div>
                 
             </div>
-            
+            <div class="app-section">
+                <div class="left app-button blue"  id="ecg">ECG</div>
+                
+            </div>
         </div>
     </div>
 
+	
     <div class="app-page" data-page="Enroll">
         <div class="app-topbar">
             <div class="app-title">Enroll Patient</div>
@@ -232,13 +243,14 @@
     
    
      <script src="./appjs/zepto.js"></script>
-     <script src="appjs/app.min.js"></script>
+     <script src="./appjs/app.min.js"></script>
      <script src="./appjs/canvasjs.min.js"></script>
     <script src="./appjs/moment.js"></script>
     <script>
       /* put your javascript here */
      var err = 0;
      var cust = new Array();
+	 var custecg = new Array();
      var userid = 0;
       App.load('initial', function () {
         
@@ -373,7 +385,9 @@
     App.controller('ViewData', function (page) {
         $(page).find("#message").hide();
         $(page).find("#grph").hide();
+		$(page).find("#ecg").hide();
         $(page).find("#chartContainer").hide();
+		$(page).find("#ecgContainer").hide();
         
          $(page).find('#patid').change(function() {
             //alert( "Handler for .change() called." );
@@ -478,6 +492,36 @@
                 }
     });
        
+	   $.ajax({
+                    type: 'GET',
+                   // url: 'http://localhost/getdata.php',
+                    url: 'getecgdata.php',
+                    // data to be added to query string:
+                    data: { id: $(page).find("#patid").val()},
+                    // type of data we are expecting in return:
+                    dataType: 'json',
+                    timeout: 6000,
+                    context: $('body'),
+                    success: function(data){
+                        
+                        //alert("Success..");
+                        //alert(data.length);
+                        var cust_ecg = new Array();
+                        cust_ecg.push(["Millis", "Value"]);
+                        for (var i = 0; i < data.length; i++){
+                        cust_ecg.push([data[i][0],data[i][1]]); 
+                    };
+                    custecg = cust_ecg;
+                    //alert(customers);
+                                       
+                    
+                },
+                error: function(xhr, type){
+                    
+                        alert( "No ecg data exists" );
+                    
+                }
+    })
 
         });
         $(page).find('#grph').click(function(){
@@ -534,6 +578,37 @@
                  showInLegend: true,
                  legendText: "Sugar",
 				dataPoints:  dataPoints3
+			}]
+		});
+		chart.render();
+        })
+		
+		$(page).find('#ecg').click(function(){
+            //alert(cust);
+            //alert(cust.length);
+            $(page).find("#ecgContainer").show();
+            var tmp1;
+            var dataPoints1 = [];
+            
+            
+            for(var i = 1; i < custecg.length; i++){
+                dataPoints1.push({x: i, y: parseInt(custecg[i][1],10)*3.3/4096.0});
+                //alert(cust[i][1]);
+            }
+            
+            //alert(dataPoints);
+            var chart = new CanvasJS.Chart("ecgContainer", {
+			title: {
+				text: "Parameter Chart"
+			},
+			axisX: {
+				interval: 1
+			},
+			data: [{
+				type: "line",
+                 showInLegend: true,
+                 legendText: "Systolic",
+				dataPoints:  dataPoints1
 			}]
 		});
 		chart.render();
@@ -643,7 +718,36 @@
                     
                 }
     });
-       
+       $.ajax({
+                    type: 'GET',
+                   // url: 'http://localhost/getdata.php',
+                    url: 'getecgdata.php',
+                    // data to be added to query string:
+                    data: { id: $(page).find("#patid").val()},
+                    // type of data we are expecting in return:
+                    dataType: 'json',
+                    timeout: 6000,
+                    context: $('body'),
+                    success: function(data){
+                        
+                        //alert("Success..");
+                        //alert(data.length);
+                        var cust_ecg = new Array();
+                        cust_ecg.push(["Millis", "Value"]);
+                        for (var i = 0; i < data.length; i++){
+                        cust_ecg.push([data[i][0],data[i][1]]); 
+                    };
+                    custecg = cust_ecg;
+                    //alert(customers);
+                                       
+                    
+                },
+                error: function(xhr, type){
+                    
+                        alert( "No ecg data exists" );
+                    
+                }
+    })
 
         });
         $(page).find('#grph').click(function(){
@@ -700,6 +804,37 @@
                  showInLegend: true,
                  legendText: "Sugar",
 				dataPoints:  dataPoints3
+			}]
+		});
+		chart.render();
+        })
+		
+		$(page).find('#ecg').click(function(){
+            //alert(cust);
+            //alert(cust.length);
+            $(page).find("#ecgContainer").show();
+            var tmp1;
+            var dataPoints1 = [];
+            
+            
+            for(var i = 1; i < custecg.length; i++){
+                dataPoints1.push({x: i, y: parseInt(custecg[i][1],10)*3.3/4096.0});
+                //alert(cust[i][1]);
+            }
+            
+            //alert(dataPoints);
+            var chart = new CanvasJS.Chart("ecgContainer", {
+			title: {
+				text: "Parameter Chart"
+			},
+			axisX: {
+				interval: 1
+			},
+			data: [{
+				type: "line",
+                 showInLegend: true,
+                 legendText: "Systolic",
+				dataPoints:  dataPoints1
 			}]
 		});
 		chart.render();
